@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ужарка - Калькулятор потерь веса</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="header">
+            <h1>🔥 Ужарка</h1>
+            <p class="subtitle">Калькулятор потерь веса</p>
+            <button id="themeToggle" class="theme-toggle" aria-label="Переключить тему">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </header>
+
+        <main class="main-content">
+            <!-- Calculator Section -->
+            <section class="calculator-section card">
+                <h2>Калькулятор</h2>
+                
+                <div class="mode-selector">
+                    <button class="mode-btn active" data-mode="shrinkage">Ужарка</button>
+                    <button class="mode-btn" data-mode="expansion">Уварка</button>
+                    <button class="mode-btn" data-mode="target">Целевой вес</button>
+                </div>
+
+                <form id="calculatorForm" class="calculator-form">
+                    <div class="form-group">
+                        <label for="inputWeight">Входной вес (г)</label>
+                        <input type="number" id="inputWeight" min="0" step="0.01" required placeholder="Например: 1000">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="outputWeight">Выходной вес (г)</label>
+                        <input type="number" id="outputWeight" min="0" step="0.01" required placeholder="Например: 850">
+                    </div>
+
+                    <div class="form-group target-weight-group hidden">
+                        <label for="targetLoss">Целевая потеря (%)</label>
+                        <input type="number" id="targetLoss" min="0" max="100" step="0.1" placeholder="Например: 15">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Рассчитать</button>
+                </form>
+
+                <div id="result" class="result hidden">
+                    <div class="result-item">
+                        <span class="result-label">Потеря веса:</span>
+                        <span id="lossValue" class="result-value">0 г</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Процент потери:</span>
+                        <span id="lossPercent" class="result-value">0%</span>
+                    </div>
+                    <div class="result-item target-result hidden">
+                        <span class="result-label">Итоговый вес:</span>
+                        <span id="finalWeight" class="result-value">0 г</span>
+                    </div>
+                    <button id="saveToJournal" class="btn btn-secondary">Сохранить в журнал</button>
+                </div>
+            </section>
+
+            <!-- Journal Section -->
+            <section class="journal-section card">
+                <h2>Журнал записей</h2>
+                
+                <div class="journal-actions">
+                    <button id="exportJson" class="btn btn-small">📄 JSON</button>
+                    <button id="exportExcel" class="btn btn-small">📊 Excel</button>
+                    <button id="exportPdf" class="btn btn-small">📑 PDF</button>
+                    <button id="printJournal" class="btn btn-small">🖨️ Печать</button>
+                    <button id="clearJournal" class="btn btn-small btn-danger">🗑️ Очистить</button>
+                </div>
+
+                <div class="table-container">
+                    <table id="journalTable">
+                        <thead>
+                            <tr>
+                                <th>Дата</th>
+                                <th>Режим</th>
+                                <th>Вход (г)</th>
+                                <th>Выход (г)</th>
+                                <th>Потеря (г)</th>
+                                <th>Потеря (%)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="journalBody">
+                            <!-- Data will be inserted here -->
+                        </tbody>
+                    </table>
+                    <p id="emptyJournal" class="empty-message">Журнал пуст</p>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2024 Ужарка. Все права защищены.</p>
+        </footer>
+    </div>
+
+    <!-- Hidden print container -->
+    <div id="printContainer" class="print-container"></div>
+
+    <!-- External Libraries -->
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <script type="module" src="script.js"></script>
+</body>
+</html>
